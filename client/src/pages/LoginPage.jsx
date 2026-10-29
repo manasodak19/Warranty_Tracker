@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { apiRequest } from '../services/api.js';
 
 export default function LoginPage() {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [values, setValues] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -29,7 +28,7 @@ export default function LoginPage() {
         body: JSON.stringify(values),
       });
       setUser(data.user);
-      navigate(location.state?.from?.pathname || '/dashboard', { replace: true });
+      navigate('/dashboard', { replace: true });
     } catch (requestError) {
       setError(requestError.message);
     } finally {

@@ -9,10 +9,11 @@ export default function SiteNav({ dashboard = false }) {
   async function handleLogout() {
     try {
       await apiRequest('/auth/logout', { method: 'POST' });
-      setUser(null);
-      navigate('/');
     } catch (error) {
       console.error('Unable to log out:', error);
+    } finally {
+      setUser(null);
+      navigate('/', { replace: true });
     }
   }
 
